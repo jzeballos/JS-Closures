@@ -58,11 +58,12 @@ properly. */
 
 
 function makeCounter() {
-  // var i=0;
-  return function(j) {
-    return j++;
-  }
-
+  var i=0;
+  i++;
+  return i;
+  // return function(j) {
+  //   return j++;
+  // }
 }
 
 
