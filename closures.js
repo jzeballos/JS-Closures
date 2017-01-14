@@ -21,14 +21,6 @@ var inner = outer;
 alert(inner);
 
 
-
-
-
-
-
-
-
-
 /******************************************************************************\
 	#PROBLEM-02
 \******************************************************************************/
@@ -47,6 +39,10 @@ var callFriend = function(){
 Create a makeCall function that when invoked logs 'Calling Jake at 435-215-9248'
 in your console. */
 
+function makeCall() {
+  var number='435-215-9248';
+  return callFriend;
+}
   //Code Here
 
 
