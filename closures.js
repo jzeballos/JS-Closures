@@ -59,8 +59,8 @@ properly. */
 
 function makeCounter() {
   var i=0;
-  function {
-    i++;
+  function() {
+    return i++;
   }
   return i;
 }
