@@ -59,7 +59,7 @@ properly. */
 
 function makeCounter() {
   var i=0;
-  function() {
+  function {
     i++;
   }
   return i;
