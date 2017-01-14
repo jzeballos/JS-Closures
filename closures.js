@@ -55,16 +55,19 @@ properly. */
 //Code Here
 
 //Uncomment this once you make your function
+
+
 function makeCounter() {
-  var i;
-  i++;
-  return i;
+  // var i=0;
+  return function(j) {
+    return j++;
+  }
 
 }
 
 
-var count = makeCounter();
-count(); // 1
+var count = makeCounter;
+count; // 1
 count(); // 2
 count(); // 3
 count(); // 4
