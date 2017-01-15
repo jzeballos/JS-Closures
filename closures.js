@@ -18,7 +18,7 @@ var inner = outer;
 
 //Once you do that, invoke inner.
 
-alert(inner);
+inner;
 
 
 /******************************************************************************\
@@ -60,7 +60,7 @@ properly. */
 function makeCounter() {
   var i=0;
   return function() {
-    return i++;
+    i++;
     return i;
   }
 }
@@ -68,15 +68,9 @@ function makeCounter() {
 
 var count = makeCounter;
 count; // 1
-count(); // 2
-count(); // 3
-count(); // 4
-
-
-
-
-
-
+count; // 2
+count; // 3
+count; // 4
 
 
 /******************************************************************************\
@@ -91,23 +85,29 @@ function is responsible for decrementing the value by one. You will need to use
 the module pattern to achieve this. */
 
 function counterFactory(value) {
-
-  // Code here.
-
+  var counter=0;
+  function inc() {
+    value++;
+  }
+  function dec() {
+    value--;
+  }
 
   return {
-  }
+    inc: function() {
+      inc(value)
+      return value;
+    },
+    dec: function() {
+      dec(value);
+      return value;
+    }
+  };
 }
 
 
+
 counter = counterFactory(10);
-
-
-
-
-
-
-
 
 
 
@@ -123,23 +123,20 @@ function motivation(firstname, lastname){
 
   var welcomeText = 'You\'re doing awesome, keep it up ';
 
+  // return {
+    function message() {
+      return welcomeText + firstname + ' ' + lastname + '.';
+    }
+  // }
   // code message function here.
 
 
   //Uncommment this to return the value of your invoked message function
-  //return message();
+  return message();
 
 }
 
 motivation('Billy', 'Bob'); // 'Your doing awesome keep it up Billy Bob
-
-
-
-
-
-
-
-
 
 
 /******************************************************************************\
@@ -166,21 +163,15 @@ var module = (function() {
 	// outside our lexical scope
 
   return {
-    // Code here.
+    publicMethod: function() {
+      return privateMethod();
+    }
   };
 
 })();
 
 // Uncomment this after you create your public method
-//   module.publicMethod();
-
-
-
-
-
-
-
-
+  module.publicMethod();
 
 
 /******************************************************************************\
@@ -193,23 +184,22 @@ to 5. What we need to do is console.log(i) so that it logs ( 0 then 1 then 2
 then 3, etc). Run this code in your console to see what the output is. */
 
 // To make this code work you will need to create a new scope for every iteration.
+
+
+
 function timeOutCounter() {
   for (var i = 0; i <= 5; i++) {
-    setTimeout(function() {
-      console.log(i);
-    }, i * 1000)
+    newScope(i);
   }
 
   function newScope(i) {
-    console.log(i)
+    return setTimeout(function() {
+      return console.log(i);
+    }, i * 1000);
   }
 }
+
 timeOutCounter();
-
-
-
-
-
 
 /******************************************************************************\
 	#PROBLEM-08
@@ -229,3 +219,45 @@ var funcArray = [];
 
   *Hint: Don't let this fool you. Break down what's really happening here.
 */
+
+// function abc() {
+//   for (var i = 0; i < 6; i++) {
+//       funcArray[i] = createfunc(i);
+//       // console.log(funcArray[i]);
+//   }
+//   function createfunc(i) {
+//       return function() {
+//         funcArray[i]=i;
+//       }
+//     }
+//   }
+//
+//
+
+
+
+function abc() {
+
+  for (var i = 0; i < 6; i++) {
+      createfunc(i);
+  }
+  
+  function createfunc(i) {
+    funcArray[i]= function() {
+      return i;
+    }
+  }
+}
+
+abc();
+
+
+
+
+
+// funcArray[0]() //0
+// funcArray[1]() //1
+// funcArray[2]() //2
+// funcArray[3]() //3
+// funcArray[4]() //4
+// funcArray[5]() //5
